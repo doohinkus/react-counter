@@ -7,6 +7,8 @@ const PlayerList = props => {
     <Consumer>
       {
         context => {
+          const highscore = context.actions.getHighscore();
+          console.log(highscore)
           return (
             <React.Fragment>
               {
@@ -15,9 +17,10 @@ const PlayerList = props => {
                     <Player
                       name={player.name}
                       id={player.id}
+                      key={player.id}
                       removePlayer={props.removePlayer}
                       score={player.score}
-                      isHighscore={props.highscore === player.score}
+                      isHighscore={highscore === player.score}
                     />
                   )
                 })
