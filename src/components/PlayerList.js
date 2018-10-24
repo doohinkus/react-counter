@@ -6,16 +6,17 @@ const PlayerList = props => {
   return (
     <Consumer>
       {
-        context => {
-          const highscore = context.actions.getHighscore();
-          console.log(highscore)
+        // destructure context
+        // context => {
+        ({ players, actions })=> {
+          const highscore = actions.getHighscore();
+          // console.log(highscore)
           return (
             <React.Fragment>
               {
-                context.players.map((player, index) => {
+                players.map((player, index) => {
                   return (
                     <Player
-                      name={player.name}
                       id={player.id}
                       key={player.id}
                       removePlayer={props.removePlayer}

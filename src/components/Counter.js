@@ -1,15 +1,15 @@
 import React from "react";
 import { Consumer } from "./Context";
 
-const Counter = ({score, id}) => {
+const Counter = ({id}) => {
   return (
     <Consumer>
-      { context => {
+      { ({ actions, players }) => {
         return (
           <div className="counter">
-            <button className="counter-action decrement" onClick={() => context.actions.changeScore(-1, id)}> - </button>
-            <span className="counter-score">{ score }</span>
-            <button className="counter-action increment" onClick={() => context.actions.changeScore(1, id)}> + </button>
+            <button className="counter-action decrement" onClick={() => actions.changeScore(-1, id)}> - </button>
+            <span className="counter-score">{ players.filter(p => p.id === id)[0].score }</span>
+            <button className="counter-action increment" onClick={() => actions.changeScore(1, id)}> + </button>
           </div>
         )
       }}

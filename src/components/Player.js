@@ -6,31 +6,29 @@ import { Consumer } from './Context';
 //PureComponent only renders component when its props change!!!!!
 class Player extends PureComponent {
   static propTypes = {
-    name: PropTypes.string,
-    score:  PropTypes.number,
     id: PropTypes.number,
     isHighscore: PropTypes.bool,
   }
 
   render (){
     //destructure
-    const { name, score, id, isHighscore} = this.props;
+    const { id, isHighscore} = this.props;
     return (
       <div className="player">
         <Consumer>
-          { context => (
+          { ({ actions, players }) => (
             <span className="player-name">
-              <button className="remove-player" onClick={() => context.actions.removePlayer(id)}>✖</button>
+              <button className="remove-player" onClick={() => actions.removePlayer(players.filter(p => p.id === id)[0].id)}>✖</button>
               <Icon isHighscore = {isHighscore}/>
               <span className={isHighscore ? 'show' : 'hide'}>*</span>
-              { name }
+              { players.filter(p => p.id === id)[0].name }
             </span>
           )}
         </Consumer>
 
         <Counter
           id={id}
-          score={score} />
+        />
         </div>
       );
   }
